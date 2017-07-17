@@ -30,3 +30,13 @@
 /usr/include/GL/wglew.h
 /usr/lib64/libGLEW.so
 /usr/lib64/pkgconfig/glew.pc
+/usr/lib/debug
+/usr/lib/debug/.build-id
+/usr/lib/debug/.build-id/8f
+/usr/lib/debug/.build-id/8f/f77dd812f76d1b19dc4d8ba2ea6dd25ccdda18
+/usr/lib/debug/.build-id/8f/f77dd812f76d1b19dc4d8ba2ea6dd25ccdda18.debug
+/usr/lib/debug/usr
+/usr/lib/debug/usr/lib64
+/usr/lib/debug/usr/lib64/libGLEW.so.1.13.0.debug
+/usr/lib/debug/usr/lib64/libGLEW.so.1.13.debug
+/usr/lib/debug/usr/lib64/libGLEW.so.debug
