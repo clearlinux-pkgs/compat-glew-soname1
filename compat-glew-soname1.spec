@@ -4,7 +4,7 @@
 #
 Name     : compat-glew-soname1
 Version  : 1.13.0
-Release  : 9
+Release  : 11
 URL      : http://downloads.sourceforge.net/project/glew/glew/1.13.0/glew-1.13.0.tgz
 Source0  : http://downloads.sourceforge.net/project/glew/glew/1.13.0/glew-1.13.0.tgz
 Summary  : The OpenGL Extension Wrangler library
@@ -46,13 +46,13 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1500333395
+export SOURCE_DATE_EPOCH=1500335956
 pushd ./
 make V=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1500333395
+export SOURCE_DATE_EPOCH=1500335956
 rm -rf %{buildroot}
 pushd ./
 %make_install
