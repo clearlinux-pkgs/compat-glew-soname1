@@ -4,7 +4,7 @@
 #
 Name     : compat-glew-soname1
 Version  : 1.13.0
-Release  : 14
+Release  : 12
 URL      : http://downloads.sourceforge.net/project/glew/glew/1.13.0/glew-1.13.0.tgz
 Source0  : http://downloads.sourceforge.net/project/glew/glew/1.13.0/glew-1.13.0.tgz
 Summary  : The OpenGL Extension Wrangler library
@@ -46,33 +46,17 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1500492328
+export SOURCE_DATE_EPOCH=1500401023
 pushd ./
 make V=1  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1500492328
+export SOURCE_DATE_EPOCH=1500401023
 rm -rf %{buildroot}
 pushd ./
 %make_install
 popd
-## make_install_append content
-mkdir -p %{buildroot}/usr/lib64/pkgconfig
-cat > %{buildroot}/usr/lib64/pkgconfig/compat-glew1.pc << EOF
-prefix=/usr
-exec_prefix=${prefix}
-libdir=/usr/lib64
-includedir=${prefix}/include
-Name: compat-glew1
-Description: The OpenGL Extension Wrangler library
-Version: 1.13.0
-Cflags: -I${includedir}
-Libs: -L${libdir} -lcompat-glew1
-Requires: glu
-EOF
-ln -s libGLEW.so.1.13 %{buildroot}/usr/lib64/libcompat-glew1.so
-## make_install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -84,8 +68,6 @@ ln -s libGLEW.so.1.13 %{buildroot}/usr/lib64/libcompat-glew1.so
 %exclude /usr/include/GL/wglew.h
 %exclude /usr/lib64/libGLEW.so
 %exclude /usr/lib64/pkgconfig/glew.pc
-/usr/lib64/libcompat-glew1.so
-/usr/lib64/pkgconfig/compat-glew1.pc
 
 %files lib
 %defattr(-,root,root,-)
