@@ -1,0 +1,18 @@
+mkdir -p %{buildroot}/usr/lib64/pkgconfig
+cat > %{buildroot}/usr/lib64/pkgconfig/compat-glew1.pc << EOF
+
+prefix=/usr
+exec_prefix=${prefix}
+libdir=/usr/lib64
+includedir=${prefix}/include
+
+Name: compat-glew1
+Description: The OpenGL Extension Wrangler library
+Version: 1.13.0
+Cflags: -I${includedir}
+Libs: -L${libdir} -lcompat-glew1
+Requires: glu
+
+EOF
+
+ln -s libGLEW.so.1.13 %{buildroot}/usr/lib64/libcompat-glew1.so
