@@ -4,38 +4,40 @@
 #
 Name     : compat-glew-soname1
 Version  : 1.13.0
-Release  : 18
+Release  : 19
 URL      : http://downloads.sourceforge.net/project/glew/glew/1.13.0/glew-1.13.0.tgz
 Source0  : http://downloads.sourceforge.net/project/glew/glew/1.13.0/glew-1.13.0.tgz
 Summary  : The OpenGL Extension Wrangler library
 Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0
-Requires: compat-glew-soname1-lib
-BuildRequires : cmake
+Requires: compat-glew-soname1-lib = %{version}-%{release}
+Requires: compat-glew-soname1-license = %{version}-%{release}
+BuildRequires : buildreq-cmake
 BuildRequires : pkgconfig(gl)
 BuildRequires : pkgconfig(x11)
+# Suppress generation of debuginfo
+%global debug_package %{nil}
 
 %description
 GLEW - The OpenGL Extension Wrangler Library
 http://glew.sourceforge.net/
 https://github.com/nigels-com/glew
 
-%package dev
-Summary: dev components for the compat-glew-soname1 package.
-Group: Development
-Requires: compat-glew-soname1-lib
-Provides: compat-glew-soname1-devel
-
-%description dev
-dev components for the compat-glew-soname1 package.
-
-
 %package lib
 Summary: lib components for the compat-glew-soname1 package.
 Group: Libraries
+Requires: compat-glew-soname1-license = %{version}-%{release}
 
 %description lib
 lib components for the compat-glew-soname1 package.
+
+
+%package license
+Summary: license components for the compat-glew-soname1 package.
+Group: Default
+
+%description license
+license components for the compat-glew-soname1 package.
 
 
 %prep
@@ -45,31 +47,51 @@ lib components for the compat-glew-soname1 package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1500401023
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1567808894
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 pushd ./
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 popd
 
+
 %install
-export SOURCE_DATE_EPOCH=1500401023
+export SOURCE_DATE_EPOCH=1567808894
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/compat-glew-soname1
+cp LICENSE.txt %{buildroot}/usr/share/package-licenses/compat-glew-soname1/LICENSE.txt
+cp doc/gpl.txt %{buildroot}/usr/share/package-licenses/compat-glew-soname1/doc_gpl.txt
 pushd ./
 %make_install
 popd
+## Remove excluded files
+rm -f %{buildroot}/usr/include/GL/glew.h
+rm -f %{buildroot}/usr/include/GL/glxew.h
+rm -f %{buildroot}/usr/include/GL/wglew.h
+rm -f %{buildroot}/usr/lib64/libGLEW.so
+rm -f %{buildroot}/usr/lib64/pkgconfig/glew.pc
+rm -f %{buildroot}/usr/include/GL/glew.h
+rm -f %{buildroot}/usr/include/GL/glxew.h
+rm -f %{buildroot}/usr/include/GL/wglew.h
+rm -f %{buildroot}/usr/lib64/libGLEW.so
+rm -f %{buildroot}/usr/lib64/pkgconfig/glew.pc
 
 %files
 %defattr(-,root,root,-)
-
-%files dev
-%defattr(-,root,root,-)
-%exclude /usr/include/GL/glew.h
-%exclude /usr/include/GL/glxew.h
-%exclude /usr/include/GL/wglew.h
-%exclude /usr/lib64/libGLEW.so
-%exclude /usr/lib64/pkgconfig/glew.pc
 
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libGLEW.so.1.13
 /usr/lib64/libGLEW.so.1.13.0
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/compat-glew-soname1/LICENSE.txt
+/usr/share/package-licenses/compat-glew-soname1/doc_gpl.txt
