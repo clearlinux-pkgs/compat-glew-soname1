@@ -4,7 +4,7 @@
 #
 Name     : compat-glew-soname1
 Version  : 1.13.0
-Release  : 19
+Release  : 20
 URL      : http://downloads.sourceforge.net/project/glew/glew/1.13.0/glew-1.13.0.tgz
 Source0  : http://downloads.sourceforge.net/project/glew/glew/1.13.0/glew-1.13.0.tgz
 Summary  : The OpenGL Extension Wrangler library
